@@ -1,15 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+import requests
 
 
 def home(request):
-    return HttpResponse("Hello, world. This is my Background remover app.")
+    return render(request, "bgremoverapp/home.html")
 
 def about(request):
-    return HttpResponse("This is the about page")
+    return render(request, "bgremoverapp/about.html")
 
 def bgremover(request):
-    import requests
 
     response = requests.post(
         'https://api.remove.bg/v1.0/removebg',
@@ -25,4 +24,4 @@ def bgremover(request):
     else:
         print("Error:", response.status_code, response.text)
 
-    return HttpResponse(response.status_code)
+    return render(request, "bgremoverapp/bgremoved.html")
